@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"solocat17.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="AtCoder Educational DP contest 題解AtCoder Educational DP contest 連結 到處看了一下發現好像沒有人有比較完整的AtCoder DP Contest的題解，我自己實力也很差於是就想說來寫寫看題目順便寫個題解好了。雖然我的blog好像根本連google搜尋建議都沒有出現…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AtCoder DP contest 題解">
+<meta property="og:url" content="https://solocat17.github.io/2022/06/08/%E9%A1%8C%E8%A7%A3-AtCoder-DP-contest-pA-pE/index.html">
+<meta property="og:site_name" content="solocat 筆記">
+<meta property="og:description" content="AtCoder Educational DP contest 題解AtCoder Educational DP contest 連結 到處看了一下發現好像沒有人有比較完整的AtCoder DP Contest的題解，我自己實力也很差於是就想說來寫寫看題目順便寫個題解好了。雖然我的blog好像根本連google搜尋建議都沒有出現…">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-06-08T13:34:10.000Z">
+<meta property="article:modified_time" content="2022-06-08T14:01:13.633Z">
+<meta property="article:author" content="solocat">
+<meta property="article:tag" content="competitive programming">
+<meta property="article:tag" content="DP">
+<meta property="article:tag" content="AtCoder">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://solocat17.github.io/2022/06/08/%E9%A1%8C%E8%A7%A3-AtCoder-DP-contest-pA-pE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>AtCoder DP contest 題解 | solocat 筆記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="/custom_css_source.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">solocat 筆記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>存檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://solocat17.github.io/2022/06/08/%E9%A1%8C%E8%A7%A3-AtCoder-DP-contest-pA-pE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="solocat">
+      <meta itemprop="description" content="於是，牠從左邊滾到了右邊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="solocat 筆記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AtCoder DP contest 題解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2022-06-08 21:34:10 / 修改時間：22:01:13" itemprop="dateCreated datePublished" datetime="2022-06-08T21:34:10+08:00">2022-06-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%8C%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">題解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="AtCoder-Educational-DP-contest-題解"><a href="#AtCoder-Educational-DP-contest-題解" class="headerlink" title="AtCoder Educational DP contest 題解"></a>AtCoder Educational DP contest 題解</h1><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks">AtCoder Educational DP contest 連結</a></p>
+<p>到處看了一下發現好像沒有人有比較完整的AtCoder DP Contest的題解，我自己實力也很差於是就想說來寫寫看題目順便寫個題解好了。雖然我的blog好像根本連google搜尋建議都沒有出現…</p>
+<span id="more"></span>
+
+<h2 id="pA"><a href="#pA" class="headerlink" title="pA"></a>pA</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_a">link</a></p>
+<p><strong>題目：$N$顆依序編號$0, 2,\cdots ,N-1$的石頭具有高度$h_i$，一隻青蛙在第$i$顆石頭時可以跳到$i + 1$或$i + 2$顆石頭，並花費$|h_i - h_j|$，試求從第$0$顆石頭跳到第$N-1$顆石頭的最小花費</strong></p>
+<ul>
+<li>dp轉移式：</li>
+<li>$$<br>dp[i]&#x3D;\begin{cases}<br>  0, &amp;\text{if $i &#x3D; 0$}.\<br>  |h_0-h_1|, &amp;\text{if $i &#x3D; 1$}.\<br>  \min(dp[i-1]+|h_i-h_{i-1}|,\\quad \quad \ dp[i-2]+|h_i-h_{i-2}|), &amp;\text{otherwise}.<br>\end{cases}$$</li>
+<li>答案：$dp[N-1]$</li>
+<li>複雜度：時間$\mathcal O(N)$，空間$\mathcal O(N)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> h[<span class="number">100000</span>], dp[<span class="number">100000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; h[i];</span><br><span class="line">  dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  dp[<span class="number">1</span>] = <span class="built_in">abs</span>(h[<span class="number">0</span>] - h[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt; n; i++) &#123;</span><br><span class="line">    dp[i] = <span class="built_in">min</span>(dp[i - <span class="number">1</span>] + <span class="built_in">abs</span>(h[i] - h[i - <span class="number">1</span>]),</span><br><span class="line">                dp[i - <span class="number">2</span>] + <span class="built_in">abs</span>(h[i] - h[i - <span class="number">2</span>]));</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; dp[n - <span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pB"><a href="#pB" class="headerlink" title="pB"></a>pB</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_b">link</a></p>
+<p><strong>題目：和前一題一樣，差在他可以跳到距離為$K$的石頭</strong></p>
+<ul>
+<li>dp轉移式：</li>
+<li>$$<br>dp[i]&#x3D;\begin{cases}<br>  0, &amp;\text{if $i &#x3D; 0$}.\<br>  \min(dp[i-1]+|h_i-h_{i-1}|,\\quad \quad \ dp[i-2]+|h_i-h_{i-2}|,\\quad \quad \quad \quad \quad \quad \cdots\\quad \quad \ dp[i-K] + |h_i-h_{i-K}|), &amp;\text{otherwise}.<br>\end{cases}$$</li>
+<li>答案：$dp[N-1]$</li>
+<li>複雜度：時間$\mathcal O(NK)$，空間$\mathcal O(N)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> h[<span class="number">100000</span>], dp[<span class="number">100000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n, k;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">  cin &gt;&gt; h[<span class="number">0</span>];</span><br><span class="line">  dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">    cin &gt;&gt; h[i];</span><br><span class="line">    dp[i] = INF;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="built_in">max</span>(<span class="number">0</span>, i - k); j &lt; i; j++) &#123;</span><br><span class="line">      dp[i] = <span class="built_in">min</span>(dp[i], dp[j] + <span class="built_in">abs</span>(h[j] - h[i]));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; dp[n - <span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pC"><a href="#pC" class="headerlink" title="pC"></a>pC</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_c">link</a></p>
+<p><strong>題目：$N$天內每天有三件事情可以選一件做，在第$i$天做事件$a, b, c$分別可以獲得$a_i, b_i, c_i$的喜悅感，但她沒辦法連續兩天做同一件事，試求喜悅感的最大和</strong></p>
+<ul>
+<li>dp轉移式：</li>
+<li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>  j_i, &amp;\text{if i &#x3D; 0}.\<br>  dp[i-1][j] +\<br>  \max_{k\in {[0,3)|k\neq j}}dp[i][k], &amp;\text{otherwise}.<br>\end{cases}$$</li>
+</ul>
+<p><del><em><strong>寫這副德性還不然去看code</strong></em></del></p>
+<ul>
+<li>答案：$\max_{i\in [0,3)}dp[N-1][i]$</li>
+<li>複雜度：時間$\mathcal O(N)$，空間$\mathcal O(N)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> abc[<span class="number">100000</span>][<span class="number">3</span>], dp[<span class="number">100000</span>][<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; abc[i][<span class="number">0</span>] &gt;&gt; abc[i][<span class="number">1</span>] &gt;&gt; abc[i][<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">  dp[<span class="number">0</span>][<span class="number">0</span>] = abc[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">  dp[<span class="number">0</span>][<span class="number">1</span>] = abc[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">  dp[<span class="number">0</span>][<span class="number">2</span>] = abc[<span class="number">0</span>][<span class="number">2</span>];</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">    dp[i][<span class="number">0</span>] = abc[i][<span class="number">0</span>] + <span class="built_in">max</span>(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">    dp[i][<span class="number">1</span>] = abc[i][<span class="number">1</span>] + <span class="built_in">max</span>(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">    dp[i][<span class="number">2</span>] = abc[i][<span class="number">2</span>] + <span class="built_in">max</span>(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; *<span class="built_in">max_element</span>(dp[n - <span class="number">1</span>], dp[n - <span class="number">1</span>] + <span class="number">3</span>) &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pD"><a href="#pD" class="headerlink" title="pD"></a>pD</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_d">link</a></p>
+<p><strong>題目：背包問題，第$i$物具有$w_i$的重量與$v_i(1\leq v_i\leq 10^9)$的價值，我們有一個容量為$W(1\leq W\leq 10^5)$的包包，在不超過容量上限下，求背包能裝下的最大值</strong></p>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><ul>
+<li>考慮兩個維度，第一個維度放「目前拿到哪個物品」，第二個維度放「拿到現在的總重」，裡面維護價值最大值</li>
+<li>dp轉移式：</li>
+<li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>  dp[i-1][j],&amp;\text{if $w_i&gt;j$}.\<br>  \max(dp[i-1][j],dp[i][j-w_i]+v_i),&amp;\text{otherwise}.<br>\end{cases}$$</li>
+<li>答案：$dp[N][W]$</li>
+<li>複雜度：時間$\mathcal O(NW)$，空間$\mathcal O(NW)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dp[<span class="number">105</span>][<span class="number">100005</span>], w[<span class="number">105</span>], v[<span class="number">105</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n, cap;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; cap;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) cin &gt;&gt; w[i] &gt;&gt; v[i];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= cap; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (j - w[i] &gt;= <span class="number">0</span>) dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j],</span><br><span class="line">                                        dp[i - <span class="number">1</span>][j - w[i]] + v[i]);</span><br><span class="line">      <span class="keyword">else</span> dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; dp[n][cap] &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><ul>
+<li>考慮一維維護目前重量下的最大價值，每次知道下一個物品價值及重量時不斷更新</li>
+<li>dp轉移式：</li>
+<li>$$dp[j]&#x3D;\max(dp[j], dp[j-w_i]+v_i)$$</li>
+<li>答案：$dp[W]$</li>
+<li>複雜度：時間$\mathcal O(NW)$，空間$\mathcal O(W)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dp[<span class="number">100005</span>], w, v;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n, cap;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; cap;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    cin &gt;&gt; w &gt;&gt; v;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = cap; j &gt;= w; j--) &#123;</span><br><span class="line">      dp[j] = <span class="built_in">max</span>(dp[j - w] + v, dp[j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; dp[cap] &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pE"><a href="#pE" class="headerlink" title="pE"></a>pE</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_e">link</a></p>
+<p><strong>題目：和上題基本上一樣，差在值域</strong><br>$$\begin{cases}<br>1\leq N\leq 100\<br>1\leq W\leq 10^5\<br>1\leq w_i\leq W\<br>1\leq v_i\leq 10^9<br>\end{cases}\Rightarrow\begin{cases}<br>1\leq N\leq 100\<br>1\leq W\leq 10^9\<br>1\leq w_i\leq W\<br>1\leq v_i\leq 10^3<br>\end{cases}$$</p>
+<h3 id="解法一-1"><a href="#解法一-1" class="headerlink" title="解法一"></a>解法一</h3><ul>
+<li>一樣考慮兩個維度，一維放「目前拿到哪個物品」，另一維放「拿到現在的總價值」，裡面維護重量最小值</li>
+<li>dp轉移式：</li>
+<li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>dp[i-1][j],&amp;\text{if $v_i &lt; j$}\<br>\min(dp[i-1][j],dp[i-1][j-v_i]+w_i),&amp;\text{otherwise}<br>\end{cases}$$</li>
+<li>答案：$\max_{i\in [1, 100001)} dp[N][i]$</li>
+<li>複雜度：時間$\mathcal O(N\sum v)$，空間$\mathcal O(N\sum v)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dp[<span class="number">105</span>][<span class="number">100005</span>], w[<span class="number">100005</span>], v[<span class="number">100005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n, cap;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; cap;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) cin &gt;&gt; w[i] &gt;&gt; v[i];</span><br><span class="line">  <span class="built_in">fill</span>(&amp;dp[<span class="number">0</span>][<span class="number">0</span>], &amp;dp[n][<span class="number">100005</span>], INF);</span><br><span class="line"></span><br><span class="line">  dp[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>; dp[<span class="number">1</span>][v[<span class="number">1</span>]] = w[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= <span class="number">100000</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (v[i] &lt;= j)&#123;</span><br><span class="line">        dp[i][j] = <span class="built_in">min</span>(dp[i - <span class="number">1</span>][j],</span><br><span class="line">                       dp[i - <span class="number">1</span>][j - v[i]] + w[i]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> mx = -INF;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">100000</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (dp[n][i] &lt;= cap) &#123;</span><br><span class="line">      mx = <span class="built_in">max</span>(mx, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; mx &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法二-1"><a href="#解法二-1" class="headerlink" title="解法二"></a>解法二</h3><ul>
+<li>和前一題一樣考慮只算一個維度，並同時不斷更新答案</li>
+<li>dp轉移式</li>
+<li>$$dp[j] &#x3D; \min(dp[j], dp[j-v_i] + w_i)$$</li>
+<li>答案：$\max_{i\in [1, 100001)} dp[i]$</li>
+<li>複雜度：時間$\mathcal O(N\sum v)$，空間$\mathcal O(\sum v)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dp[<span class="number">100005</span>], w, v;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n, cap;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; cap;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">fill</span>(dp, dp + <span class="number">100005</span>, INF);</span><br><span class="line">  dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    cin &gt;&gt; w &gt;&gt; v;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">100000</span>; j &gt;= v; j--) &#123;</span><br><span class="line">      dp[j] = <span class="built_in">min</span>(dp[j], dp[j - v] + w);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> mx = -INF;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">100000</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (dp[i] &lt;= cap) &#123;</span><br><span class="line">      mx = <span class="built_in">max</span>(mx, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; mx &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pF"><a href="#pF" class="headerlink" title="pF"></a>pF</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_f">link</a></p>
+<p><strong>題目：給你兩個字串$s, t$，請找出他們的最長共同子字串</strong></p>
+<ul>
+<li>考慮蓋表，$dp[i][j]$表示$s_0$到$s_{i-1}$，$t_0$到$t_{j-1}$為止最長共同子字串的長度</li>
+<li>dp轉移式：</li>
+<li>$$<br>  dp[i][j]&#x3D;<br>  \begin{cases}<br>dp[i-1][j-1]+1,&amp;\text{if $s_{i-1} &#x3D; t_{j-1}$}\<br>\max(dp[i-1][j], dp[i][j-1]),&amp;\text{otherwise}<br>  \end{cases}<br>$$</li>
+<li>答案：回朔找解，從$dp[|s|][|t|]$往回找，如果$s_{i-1}&#x3D;t_{j-1}$，把答案字串加上$s_{i-1}$並把<code>i--; j--;</code>；如果不一樣則按照蓋表的順序，已知我們是從上面或左邊比較大的那個來的，我們就往比較大的那邊回朔</li>
+<li>複雜度：時間$\mathcal O(|s||t|)$，空間$\mathcal O(|s||t|)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dp[<span class="number">3005</span>][<span class="number">3005</span>], i, j, slen, tlen;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  string s, t;</span><br><span class="line">  cin &gt;&gt; s &gt;&gt; t;</span><br><span class="line">  slen = s.<span class="built_in">size</span>(), tlen = t.<span class="built_in">size</span>();</span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= slen; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt;= tlen; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!i || !j) dp[i][j] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (s[i - <span class="number">1</span>] == t[j - <span class="number">1</span>]) dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">else</span> dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j], dp[i][j - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  i = slen, j = tlen;</span><br><span class="line">  string ans;</span><br><span class="line">  <span class="keyword">while</span> (i &amp;&amp; j) &#123;</span><br><span class="line">    <span class="keyword">if</span> (s[i - <span class="number">1</span>] == t[j - <span class="number">1</span>]) &#123;</span><br><span class="line">      ans += s[i - <span class="number">1</span>];</span><br><span class="line">      i--; j--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (dp[i - <span class="number">1</span>][j] &gt; dp[i][j - <span class="number">1</span>]) i--;</span><br><span class="line">    <span class="keyword">else</span> j--;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">reverse</span>(ans.<span class="built_in">begin</span>(), ans.<span class="built_in">end</span>());</span><br><span class="line">  cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pG"><a href="#pG" class="headerlink" title="pG"></a>pG</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_g">link</a></p>
+<p><strong>題目：給你一張DAG，求圖上的最長路徑</strong></p>
+<h3 id="解法一-2"><a href="#解法一-2" class="headerlink" title="解法一"></a>解法一</h3><ul>
+<li>做拓樸排序(Kahn’s algorithm)，從最前面的點開始算最長路徑，每次做到一個點時更新所有他能到的點的答案</li>
+<li>dp轉移式：</li>
+<li>$$dp[v] &#x3D; \max_{u \in \deg^-(v)} (dp[u]+1)$$</li>
+<li>答案：在更新過程中不斷更新最長距離$ans&#x3D;\max dp[i]$</li>
+<li>複雜度：時間$\mathcal O(N+M)$，空間$\mathcal O(NM)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n, m, s, t;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">graph</span>(n + <span class="number">1</span>);</span><br><span class="line">  <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">indeg</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">    cin &gt;&gt; s &gt;&gt; t;</span><br><span class="line">    graph[s].<span class="built_in">emplace_back</span>(t);</span><br><span class="line">    indeg[t]++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!indeg[i]) q.<span class="built_in">push</span>(i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">mxdis</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">  <span class="type">int</span> mx = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">while</span> (q.<span class="built_in">size</span>()) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> cur : graph[q.<span class="built_in">front</span>()]) &#123;</span><br><span class="line">      mxdis[cur] = <span class="built_in">max</span>(mxdis[cur], mxdis[q.<span class="built_in">front</span>()] + <span class="number">1</span>);</span><br><span class="line">      mx = <span class="built_in">max</span>(mx, mxdis[cur]);</span><br><span class="line">      indeg[cur]--;</span><br><span class="line">      <span class="keyword">if</span>(!indeg[cur]) q.<span class="built_in">push</span>(cur);</span><br><span class="line">    &#125;</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cout &lt;&lt; mx &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="解法二-2"><a href="#解法二-2" class="headerlink" title="解法二"></a>解法二</h3><ul>
+<li>其實也不見得要先找到最前面的點，可以考慮從任意點開始做dfs，不斷找他的入度的最長路徑同時更新這個點的答案</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; graph[<span class="number">100005</span>];  <span class="comment">//from where -&gt; reverse edge</span></span><br><span class="line"><span class="type">int</span> mxdis[<span class="number">100005</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> cur)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (graph[cur].<span class="built_in">empty</span>()) <span class="keyword">return</span> mxdis[cur] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> (mxdis[cur] != <span class="number">-1</span>) <span class="keyword">return</span> mxdis[cur];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i : graph[cur])&#123;</span><br><span class="line">    mxdis[cur] = <span class="built_in">max</span>(mxdis[cur], <span class="built_in">dfs</span>(i));</span><br><span class="line">  &#125;</span><br><span class="line">  mxdis[cur]++;</span><br><span class="line">  <span class="keyword">return</span> mxdis[cur];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n, m, s, t;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="built_in">fill</span>(mxdis, mxdis + n + <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">    cin &gt;&gt; s &gt;&gt; t;</span><br><span class="line">    graph[t].<span class="built_in">emplace_back</span>(s);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> mx = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) mx = <span class="built_in">max</span>(mx, <span class="built_in">dfs</span>(i));</span><br><span class="line"></span><br><span class="line">  cout &lt;&lt; mx &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pH"><a href="#pH" class="headerlink" title="pH"></a>pH</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_h">link</a></p>
+<p><strong>題目：給你一H*W由’#’及’.’組成的矩陣，其中’.’可走#’不可走，求從(1,1)走到(H,W)的方法數</strong></p>
+<ul>
+<li>小技巧是按照題目說的從(1,1)開始存值，x或y如果是0就把它值設成0，好寫很多(?)</li>
+<li>dp轉移式</li>
+<li>$$<br>  dp[i][j]&#x3D;<br>  \begin{cases}<br>0,&amp;\text{if $i &#x3D; 0$ or $j &#x3D; 0$}\<br>1,&amp;\text{if $i &#x3D; 1$ and $j &#x3D; 1$}\<br>dp[i-1][j]+dp[i][j-1],&amp;\text{otherwise}<br>  \end{cases}<br>$$</li>
+<li>答案：$dp[H][W]$</li>
+<li>複雜度：時間$\mathcal O(HW)$，空間$\mathcal O(HW)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MOD = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> mp[<span class="number">1005</span>][<span class="number">1005</span>];</span><br><span class="line"><span class="type">int</span> dp[<span class="number">1005</span>][<span class="number">1005</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> h, w;</span><br><span class="line">  cin &gt;&gt; h &gt;&gt; w;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= h; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= w; j++) cin &gt;&gt; mp[i][j];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1005</span>; i++) &#123;</span><br><span class="line">    dp[<span class="number">0</span>][i] = dp[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  dp[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= h; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= w; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (i == <span class="number">1</span> &amp;&amp; j == <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">      <span class="keyword">if</span> (mp[i][j] == <span class="string">&#x27;#&#x27;</span>) dp[i][j] = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">else</span> dp[i][j] = (dp[i - <span class="number">1</span>][j] + dp[i][j - <span class="number">1</span>]) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; dp[h][w] &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pI"><a href="#pI" class="headerlink" title="pI"></a>pI</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_i">link</a></p>
+<p><strong>題目：有$N$枚硬幣，第$i$枚硬幣擲出人頭的機率為$p_i$，試求全部擲出人頭比數字多的機率</strong></p>
+<ul>
+<li>考慮兩個維度，第一個維度放當前做到第幾個硬幣，第二個維度維護當前有幾個硬幣是人頭面</li>
+<li>dp轉移式：</li>
+<li>$$<br>  dp[i][j]&#x3D;<br>  \begin{cases}<br>dp[i−1][j]\times(1−p_i),&amp;\text{if j &#x3D; 0}\<br>dp[i-1][j]\times(1-p_i)+dp[i-1][j-1]\times p_i,&amp;\text{otherwise}<br>  \end{cases}<br>  $$</li>
+<li>答案：$\sum_{i&#x3D;\frac{N+1}{2}}^{n} dp[N][i]$</li>
+<li>複雜度：時間$\mathcal O(N^2)$，空間$\mathcal O(N^2)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">double</span> dp[<span class="number">3005</span>][<span class="number">3005</span>], p[<span class="number">3005</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) cin &gt;&gt; p[i];</span><br><span class="line"></span><br><span class="line">  dp[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span> - p[<span class="number">1</span>];</span><br><span class="line">  dp[<span class="number">1</span>][<span class="number">1</span>] = p[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= i; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (j == <span class="number">0</span>) dp[i][j] = dp[i - <span class="number">1</span>][j] * (<span class="number">1</span> - p[i]);</span><br><span class="line">      <span class="keyword">else</span> dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] * p[i] + dp[i - <span class="number">1</span>][j] * (<span class="number">1</span> - p[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="type">double</span> ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = (n + <span class="number">1</span>) / <span class="number">2</span>; i &lt;= n; i++) ans += dp[n][i];</span><br><span class="line"></span><br><span class="line">  cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">10</span>) &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pJ"><a href="#pJ" class="headerlink" title="pJ"></a>pJ</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_j">link</a></p>
+<p><strong>題目：有$N$個碟子，第$i$個碟子上有$a_i(1\leq a_i\leq 3)$貫壽司，每次操作隨機從$1,2,3,\cdots ,N$個碟子中選一個吃掉碟子上的一貫壽司，若選中的碟子上沒有壽司則不做任何動作。試求將所有壽司吃完所需操作數的期望值</strong></p>
+<ul>
+<li>考慮三個維度，第$i(1\leq i\leq 3)$維維護有幾個碟子上有$i$貫壽司</li>
+<li>dp轉移式：</li>
+<li>$$dp[i][j][k]&#x3D;\frac{n}{i+j+k}\+\frac{i}{i+j+k}\times dp[i-1][j][k]\+\frac{j}{i+j+k}\times dp[i+1][j-1][k]\+\frac{k}{i+j+k}\times dp[i][j+1][k-1]$$</li>
+<li>答案：$dp[count(a_i&#x3D;1)][count(a_i&#x3D;2)][count(a_i&#x3D;3)]$</li>
+<li>複雜度：時間$\mathcal O(N^3)$，空間$\mathcal O(N^3)$</li>
+</ul>
+<p>AC Code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">double</span> dp[<span class="number">305</span>][<span class="number">305</span>][<span class="number">305</span>];</span><br><span class="line"><span class="type">int</span> n, tmp, cnt[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">rec</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (i == <span class="number">0</span> &amp;&amp; j == <span class="number">0</span> &amp;&amp; k == <span class="number">0</span>) <span class="keyword">return</span> dp[i][j][k] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> (dp[i][j][k] &gt;= <span class="number">0</span>) <span class="keyword">return</span> dp[i][j][k];</span><br><span class="line"></span><br><span class="line">  <span class="type">double</span> sum = i + j + k;</span><br><span class="line">  dp[i][j][k] = n / sum;</span><br><span class="line">  <span class="keyword">if</span> (i) dp[i][j][k] += (<span class="built_in">rec</span>(i - <span class="number">1</span>, j, k) * i / sum);</span><br><span class="line">  <span class="keyword">if</span> (j) dp[i][j][k] += (<span class="built_in">rec</span>(i + <span class="number">1</span>, j - <span class="number">1</span>, k) * j / sum);</span><br><span class="line">  <span class="keyword">if</span> (k) dp[i][j][k] += (<span class="built_in">rec</span>(i, j + <span class="number">1</span>, k - <span class="number">1</span>) * k / sum);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> dp[i][j][k];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="built_in">sizeof</span>(dp));</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  cnt[<span class="number">0</span>] = cnt[<span class="number">1</span>] = cnt[<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    cin &gt;&gt; tmp;</span><br><span class="line">    tmp--;</span><br><span class="line">    cnt[tmp]++;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">10</span>) &lt;&lt; <span class="built_in">rec</span>(cnt[<span class="number">0</span>], cnt[<span class="number">1</span>], cnt[<span class="number">2</span>]) &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/competitive-programming/" rel="tag"># competitive programming</a>
+              <a href="/tags/DP/" rel="tag"># DP</a>
+              <a href="/tags/AtCoder/" rel="tag"># AtCoder</a>
+          </div>
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          網站簡介
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AtCoder-Educational-DP-contest-%E9%A1%8C%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">AtCoder Educational DP contest 題解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pA"><span class="nav-number">1.1.</span> <span class="nav-text">pA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pB"><span class="nav-number">1.2.</span> <span class="nav-text">pB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pC"><span class="nav-number">1.3.</span> <span class="nav-text">pC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pD"><span class="nav-number">1.4.</span> <span class="nav-text">pD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%B8%80"><span class="nav-number">1.4.1.</span> <span class="nav-text">解法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%BA%8C"><span class="nav-number">1.4.2.</span> <span class="nav-text">解法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pE"><span class="nav-number">1.5.</span> <span class="nav-text">pE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%B8%80-1"><span class="nav-number">1.5.1.</span> <span class="nav-text">解法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%BA%8C-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">解法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pF"><span class="nav-number">1.6.</span> <span class="nav-text">pF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pG"><span class="nav-number">1.7.</span> <span class="nav-text">pG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%B8%80-2"><span class="nav-number">1.7.1.</span> <span class="nav-text">解法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%BA%8C-2"><span class="nav-number">1.7.2.</span> <span class="nav-text">解法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pH"><span class="nav-number">1.8.</span> <span class="nav-text">pH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pI"><span class="nav-number">1.9.</span> <span class="nav-text">pI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pJ"><span class="nav-number">1.10.</span> <span class="nav-text">pJ</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">solocat</p>
+  <div class="site-description" itemprop="description">於是，牠從左邊滾到了右邊</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/solocat17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;solocat17" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:solocat17@gmail.com" title="E-Mail → mailto:solocat17@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Yen_Lee17" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Yen_Lee17" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/senzenlee" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;senzenlee" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-code"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">solocat</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
