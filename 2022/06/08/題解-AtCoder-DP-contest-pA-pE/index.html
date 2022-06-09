@@ -28,7 +28,7 @@
 <meta property="og:description" content="AtCoder Educational DP contest 題解AtCoder Educational DP contest 連結 到處看了一下發現好像沒有人有比較完整的AtCoder DP Contest的題解，我自己實力也很差於是就想說來寫寫看題目順便寫個題解好了。雖然我的blog好像根本連google搜尋建議都沒有出現…">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-06-08T13:34:10.000Z">
-<meta property="article:modified_time" content="2022-06-08T14:01:13.633Z">
+<meta property="article:modified_time" content="2022-06-09T06:35:39.316Z">
 <meta property="article:author" content="solocat">
 <meta property="article:tag" content="competitive programming">
 <meta property="article:tag" content="DP">
@@ -193,10 +193,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2022-06-08 21:34:10 / 修改時間：22:01:13" itemprop="dateCreated datePublished" datetime="2022-06-08T21:34:10+08:00">2022-06-08</time>
+              <time title="創建時間：2022-06-08 21:34:10" itemprop="dateCreated datePublished" datetime="2022-06-08T21:34:10+08:00">2022-06-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-09 14:35:39" itemprop="dateModified" datetime="2022-06-09T14:35:39+08:00">2022-06-09</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -226,7 +232,7 @@
 <p><strong>題目：$N$顆依序編號$0, 2,\cdots ,N-1$的石頭具有高度$h_i$，一隻青蛙在第$i$顆石頭時可以跳到$i + 1$或$i + 2$顆石頭，並花費$|h_i - h_j|$，試求從第$0$顆石頭跳到第$N-1$顆石頭的最小花費</strong></p>
 <ul>
 <li>dp轉移式：</li>
-<li>$$<br>dp[i]&#x3D;\begin{cases}<br>  0, &amp;\text{if $i &#x3D; 0$}.\<br>  |h_0-h_1|, &amp;\text{if $i &#x3D; 1$}.\<br>  \min(dp[i-1]+|h_i-h_{i-1}|,\\quad \quad \ dp[i-2]+|h_i-h_{i-2}|), &amp;\text{otherwise}.<br>\end{cases}$$</li>
+<li>$$<br>dp[i]&#x3D;\begin{cases}<br>  0, &amp;\text{if $i &#x3D; 0$}.\\<br>  |h_0-h_1|, &amp;\text{if $i &#x3D; 1$}.\\<br>  \min(dp[i-1]+|h_i-h_{i-1}|,\\\quad \quad \ dp[i-2]+|h_i-h_{i-2}|), &amp;\text{otherwise}.<br>\end{cases}$$</li>
 <li>答案：$dp[N-1]$</li>
 <li>複雜度：時間$\mathcal O(N)$，空間$\mathcal O(N)$</li>
 </ul>
@@ -238,7 +244,7 @@
 <p><strong>題目：和前一題一樣，差在他可以跳到距離為$K$的石頭</strong></p>
 <ul>
 <li>dp轉移式：</li>
-<li>$$<br>dp[i]&#x3D;\begin{cases}<br>  0, &amp;\text{if $i &#x3D; 0$}.\<br>  \min(dp[i-1]+|h_i-h_{i-1}|,\\quad \quad \ dp[i-2]+|h_i-h_{i-2}|,\\quad \quad \quad \quad \quad \quad \cdots\\quad \quad \ dp[i-K] + |h_i-h_{i-K}|), &amp;\text{otherwise}.<br>\end{cases}$$</li>
+<li>$$<br>dp[i]&#x3D;\begin{cases}<br>  0, &amp;\text{if $i &#x3D; 0$}.\\<br>  \min(dp[i-1]+|h_i-h_{i-1}|,\\\quad \quad \ dp[i-2]+|h_i-h_{i-2}|,\\\quad \quad \quad \quad \quad \quad \cdots\\\quad \quad \ dp[i-K] + |h_i-h_{i-K}|), &amp;\text{otherwise}.<br>\end{cases}$$</li>
 <li>答案：$dp[N-1]$</li>
 <li>複雜度：時間$\mathcal O(NK)$，空間$\mathcal O(N)$</li>
 </ul>
@@ -250,7 +256,7 @@
 <p><strong>題目：$N$天內每天有三件事情可以選一件做，在第$i$天做事件$a, b, c$分別可以獲得$a_i, b_i, c_i$的喜悅感，但她沒辦法連續兩天做同一件事，試求喜悅感的最大和</strong></p>
 <ul>
 <li>dp轉移式：</li>
-<li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>  j_i, &amp;\text{if i &#x3D; 0}.\<br>  dp[i-1][j] +\<br>  \max_{k\in {[0,3)|k\neq j}}dp[i][k], &amp;\text{otherwise}.<br>\end{cases}$$</li>
+<li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>  j_i, &amp;\text{if i &#x3D; 0}.\\<br>  dp[i-1][j] +\\<br>  \max_{k\in {[0,3)|k\neq j}}dp[i][k], &amp;\text{otherwise}.<br>\end{cases}$$</li>
 </ul>
 <p><del><em><strong>寫這副德性還不然去看code</strong></em></del></p>
 <ul>
@@ -266,7 +272,7 @@
 <h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><ul>
 <li>考慮兩個維度，第一個維度放「目前拿到哪個物品」，第二個維度放「拿到現在的總重」，裡面維護價值最大值</li>
 <li>dp轉移式：</li>
-<li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>  dp[i-1][j],&amp;\text{if $w_i&gt;j$}.\<br>  \max(dp[i-1][j],dp[i][j-w_i]+v_i),&amp;\text{otherwise}.<br>\end{cases}$$</li>
+<li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>  dp[i-1][j],&amp;\text{if $w_i&gt;j$}.\\<br>  \max(dp[i-1][j],dp[i][j-w_i]+v_i),&amp;\text{otherwise}.<br>\end{cases}$$</li>
 <li>答案：$dp[N][W]$</li>
 <li>複雜度：時間$\mathcal O(NW)$，空間$\mathcal O(NW)$</li>
 </ul>
@@ -285,11 +291,11 @@
 
 <hr>
 <h2 id="pE"><a href="#pE" class="headerlink" title="pE"></a>pE</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_e">link</a></p>
-<p><strong>題目：和上題基本上一樣，差在值域</strong><br>$$\begin{cases}<br>1\leq N\leq 100\<br>1\leq W\leq 10^5\<br>1\leq w_i\leq W\<br>1\leq v_i\leq 10^9<br>\end{cases}\Rightarrow\begin{cases}<br>1\leq N\leq 100\<br>1\leq W\leq 10^9\<br>1\leq w_i\leq W\<br>1\leq v_i\leq 10^3<br>\end{cases}$$</p>
+<p><strong>題目：和上題基本上一樣，差在值域</strong><br>$$\begin{cases}<br>1\leq N\leq 100\\<br>1\leq W\leq 10^5\\<br>1\leq w_i\leq W\\<br>1\leq v_i\leq 10^9<br>\end{cases}\Rightarrow\begin{cases}<br>1\leq N\leq 100\\<br>1\leq W\leq 10^9\\<br>1\leq w_i\leq W\\<br>1\leq v_i\leq 10^3<br>\end{cases}$$</p>
 <h3 id="解法一-1"><a href="#解法一-1" class="headerlink" title="解法一"></a>解法一</h3><ul>
 <li>一樣考慮兩個維度，一維放「目前拿到哪個物品」，另一維放「拿到現在的總價值」，裡面維護重量最小值</li>
 <li>dp轉移式：</li>
-<li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>dp[i-1][j],&amp;\text{if $v_i &lt; j$}\<br>\min(dp[i-1][j],dp[i-1][j-v_i]+w_i),&amp;\text{otherwise}<br>\end{cases}$$</li>
+<li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>dp[i-1][j],&amp;\text{if $v_i &lt; j$}\\<br>\min(dp[i-1][j],dp[i-1][j-v_i]+w_i),&amp;\text{otherwise}<br>\end{cases}$$</li>
 <li>答案：$\max_{i\in [1, 100001)} dp[N][i]$</li>
 <li>複雜度：時間$\mathcal O(N\sum v)$，空間$\mathcal O(N\sum v)$</li>
 </ul>
@@ -312,7 +318,7 @@
 <ul>
 <li>考慮蓋表，$dp[i][j]$表示$s_0$到$s_{i-1}$，$t_0$到$t_{j-1}$為止最長共同子字串的長度</li>
 <li>dp轉移式：</li>
-<li>$$<br>  dp[i][j]&#x3D;<br>  \begin{cases}<br>dp[i-1][j-1]+1,&amp;\text{if $s_{i-1} &#x3D; t_{j-1}$}\<br>\max(dp[i-1][j], dp[i][j-1]),&amp;\text{otherwise}<br>  \end{cases}<br>$$</li>
+<li>$$<br>  dp[i][j]&#x3D;<br>  \begin{cases}<br>dp[i-1][j-1]+1,&amp;\text{if $s_{i-1} &#x3D; t_{j-1}$}\\<br>\max(dp[i-1][j], dp[i][j-1]),&amp;\text{otherwise}<br>  \end{cases}<br>$$</li>
 <li>答案：回朔找解，從$dp[|s|][|t|]$往回找，如果$s_{i-1}&#x3D;t_{j-1}$，把答案字串加上$s_{i-1}$並把<code>i--; j--;</code>；如果不一樣則按照蓋表的順序，已知我們是從上面或左邊比較大的那個來的，我們就往比較大的那邊回朔</li>
 <li>複雜度：時間$\mathcal O(|s||t|)$，空間$\mathcal O(|s||t|)$</li>
 </ul>
@@ -345,7 +351,7 @@
 <ul>
 <li>小技巧是按照題目說的從(1,1)開始存值，x或y如果是0就把它值設成0，好寫很多(?)</li>
 <li>dp轉移式</li>
-<li>$$<br>  dp[i][j]&#x3D;<br>  \begin{cases}<br>0,&amp;\text{if $i &#x3D; 0$ or $j &#x3D; 0$}\<br>1,&amp;\text{if $i &#x3D; 1$ and $j &#x3D; 1$}\<br>dp[i-1][j]+dp[i][j-1],&amp;\text{otherwise}<br>  \end{cases}<br>$$</li>
+<li>$$<br>  dp[i][j]&#x3D;<br>  \begin{cases}<br>0,&amp;\text{if $i &#x3D; 0$ or $j &#x3D; 0$}\\<br>1,&amp;\text{if $i &#x3D; 1$ and $j &#x3D; 1$}\\<br>dp[i-1][j]+dp[i][j-1],&amp;\text{otherwise}<br>  \end{cases}<br>$$</li>
 <li>答案：$dp[H][W]$</li>
 <li>複雜度：時間$\mathcal O(HW)$，空間$\mathcal O(HW)$</li>
 </ul>
@@ -358,7 +364,7 @@
 <ul>
 <li>考慮兩個維度，第一個維度放當前做到第幾個硬幣，第二個維度維護當前有幾個硬幣是人頭面</li>
 <li>dp轉移式：</li>
-<li>$$<br>  dp[i][j]&#x3D;<br>  \begin{cases}<br>dp[i−1][j]\times(1−p_i),&amp;\text{if j &#x3D; 0}\<br>dp[i-1][j]\times(1-p_i)+dp[i-1][j-1]\times p_i,&amp;\text{otherwise}<br>  \end{cases}<br>  $$</li>
+<li>$$<br>  dp[i][j]&#x3D;<br>  \begin{cases}<br>dp[i−1][j]\times(1−p_i),&amp;\text{if j &#x3D; 0}\\<br>dp[i-1][j]\times(1-p_i)+dp[i-1][j-1]\times p_i,&amp;\text{otherwise}<br>  \end{cases}<br>  $$</li>
 <li>答案：$\sum_{i&#x3D;\frac{N+1}{2}}^{n} dp[N][i]$</li>
 <li>複雜度：時間$\mathcal O(N^2)$，空間$\mathcal O(N^2)$</li>
 </ul>
@@ -371,7 +377,7 @@
 <ul>
 <li>考慮三個維度，第$i(1\leq i\leq 3)$維維護有幾個碟子上有$i$貫壽司</li>
 <li>dp轉移式：</li>
-<li>$$dp[i][j][k]&#x3D;\frac{n}{i+j+k}\+\frac{i}{i+j+k}\times dp[i-1][j][k]\+\frac{j}{i+j+k}\times dp[i+1][j-1][k]\+\frac{k}{i+j+k}\times dp[i][j+1][k-1]$$</li>
+<li>$$\begin{aligned}<br> dp[i][j][k]&amp;&#x3D;\frac{n}{i+j+k}\\&amp;+\frac{i}{i+j+k}\times dp[i-1][j][k]\\&amp;+\frac{j}{i+j+k}\times dp[i+1][j-1][k]\\&amp;+\frac{k}{i+j+k}\times dp[i][j+1][k-1]<br> \end{aligned}$$</li>
 <li>答案：$dp[count(a_i&#x3D;1)][count(a_i&#x3D;2)][count(a_i&#x3D;3)]$</li>
 <li>複雜度：時間$\mathcal O(N^3)$，空間$\mathcal O(N^3)$</li>
 </ul>
@@ -583,7 +589,6 @@
   if (typeof MathJax === 'undefined') {
     window.MathJax = {
       loader: {
-          load: ['[tex]/mhchem'],
         source: {
           '[tex]/amsCd': '[tex]/amscd',
           '[tex]/AMScd': '[tex]/amscd'
@@ -591,7 +596,6 @@
       },
       tex: {
         inlineMath: {'[+]': [['$', '$']]},
-          packages: {'[+]': ['mhchem']},
         tags: 'ams'
       },
       options: {
