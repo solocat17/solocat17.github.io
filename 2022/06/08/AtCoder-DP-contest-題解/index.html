@@ -23,19 +23,19 @@
   <meta name="description" content="AtCoder Educational DP contest 題解AtCoder Educational DP contest 連結 到處看了一下發現好像沒有人有比較完整的AtCoder DP Contest的題解，我自己實力也很差於是就想說來寫寫看題目順便寫個題解好了。雖然我的blog好像根本連google搜尋建議都沒有出現… 這篇文最早是從高二上的2020年底開始寫，最近把blog架好了，不知">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AtCoder DP contest 題解">
-<meta property="og:url" content="https://solocat17.github.io/2022/06/08/%E9%A1%8C%E8%A7%A3-AtCoder-DP-contest-pA-pE/index.html">
+<meta property="og:url" content="https://solocat17.github.io/2022/06/08/AtCoder-DP-contest-%E9%A1%8C%E8%A7%A3/index.html">
 <meta property="og:site_name" content="solocat 筆記">
 <meta property="og:description" content="AtCoder Educational DP contest 題解AtCoder Educational DP contest 連結 到處看了一下發現好像沒有人有比較完整的AtCoder DP Contest的題解，我自己實力也很差於是就想說來寫寫看題目順便寫個題解好了。雖然我的blog好像根本連google搜尋建議都沒有出現… 這篇文最早是從高二上的2020年底開始寫，最近把blog架好了，不知">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-06-08T13:34:10.000Z">
-<meta property="article:modified_time" content="2022-06-09T09:30:25.361Z">
+<meta property="article:modified_time" content="2022-06-09T13:27:34.196Z">
 <meta property="article:author" content="solocat">
 <meta property="article:tag" content="competitive programming">
 <meta property="article:tag" content="DP">
 <meta property="article:tag" content="AtCoder">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://solocat17.github.io/2022/06/08/%E9%A1%8C%E8%A7%A3-AtCoder-DP-contest-pA-pE/">
+<link rel="canonical" href="https://solocat17.github.io/2022/06/08/AtCoder-DP-contest-%E9%A1%8C%E8%A7%A3/">
 
 
 <script id="page-configurations">
@@ -171,7 +171,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://solocat17.github.io/2022/06/08/%E9%A1%8C%E8%A7%A3-AtCoder-DP-contest-pA-pE/">
+    <link itemprop="mainEntityOfPage" href="https://solocat17.github.io/2022/06/08/AtCoder-DP-contest-%E9%A1%8C%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2022-06-09 17:30:25" itemprop="dateModified" datetime="2022-06-09T17:30:25+08:00">2022-06-09</time>
+                <time title="修改時間：2022-06-09 21:27:34" itemprop="dateModified" datetime="2022-06-09T21:27:34+08:00">2022-06-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,7 +230,7 @@
 <span id="more"></span>
 
 <h2 id="pA"><a href="#pA" class="headerlink" title="pA"></a>pA</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_a">link</a></p>
-<p><strong>題目：$N$顆依序編號$0, 2,\cdots ,N-1$的石頭具有高度$h_i$，一隻青蛙在第$i$顆石頭時可以跳到$i + 1$或$i + 2$顆石頭，並花費$|h_i - h_j|$，試求從第$0$顆石頭跳到第$N-1$顆石頭的最小花費</strong></p>
+<p><strong>題目：$N$顆依序編號$0, 1, 2,\cdots ,N-1$的石頭具有高度$h_i$，一隻青蛙在第$i$顆石頭時可以跳到$i + 1$或$i + 2$顆石頭，並花費$|h_i - h_j|$，試求從第$0$顆石頭跳到第$N-1$顆石頭的最小花費</strong></p>
 <ul>
 <li>dp轉移式：</li>
 <li>$$<br>dp[i]&#x3D;\begin{cases}<br>  0, &amp;\text{if $i &#x3D; 0$}.\\<br>  |h_0-h_1|, &amp;\text{if $i &#x3D; 1$}.\\<br>  \min(dp[i-1]+|h_i-h_{i-1}|,\\<br>  \quad \quad \ dp[i-2]+|h_i-h_{i-2}|), &amp;\text{otherwise}.<br>\end{cases}<br>$$</li>
@@ -271,7 +271,7 @@
 <h2 id="pD"><a href="#pD" class="headerlink" title="pD"></a>pD</h2><p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_d">link</a></p>
 <p><strong>題目：背包問題，第$i$物具有$w_i$的重量與$v_i(1\leq v_i\leq 10^9)$的價值，我們有一個容量為$W(1\leq W\leq 10^5)$的包包，在不超過容量上限下，求背包能裝下的最大值</strong></p>
 <h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><ul>
-<li>考慮兩個維度，第一個維度放「目前拿到哪個物品」，第二個維度放「拿到現在的總重」，裡面維護價值最大值</li>
+<li>考慮兩個維度，第一個維度放「目前拿到哪個物品」，第二個維度放「拿到現在，背包還剩多少容量」，裡面維護價值最大值</li>
 <li>dp轉移式：</li>
 <li>$$<br>dp[i][j]&#x3D;\begin{cases}<br>  dp[i-1][j],&amp;\text{if $w_i&gt;j$}.\\<br>  \max(dp[i-1][j],dp[i][j-w_i]+v_i),&amp;\text{otherwise}.<br>\end{cases}$$</li>
 <li>答案：$dp[N][W]$</li>
